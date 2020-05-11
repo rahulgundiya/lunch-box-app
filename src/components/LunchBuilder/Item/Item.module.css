@@ -1,0 +1,29 @@
+.BuildControl 
+{
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin:0px 0;
+}
+
+.Label {
+    padding: 10px;
+    font-weight: bold;
+    width: 60px;
+    margin-right: 80px;;
+}
+.BuildControl .More {
+    background-color: powderblue;
+    color: #000000;
+    margin-right: 150px;;
+}
+
+ /* @media(min-width:600px)
+{
+    .BuildControl .More {
+   
+    margin-left:50px;
+    display: inline-block;
+        
+    }
+}  */

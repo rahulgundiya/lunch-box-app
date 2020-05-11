@@ -1,0 +1,32 @@
+import React from 'react'
+import classes from './Lunch.module.css';
+import Navbar from 'react-bootstrap/Navbar'
+
+
+const lunch = (props) => {
+    const { ingredients } = props
+    let finalArray = []
+    Object.keys(ingredients).map(function (key) {
+      return  finalArray.push({ name: key, quantity: ingredients[key] })
+        // return [key:key, ingredients[key]];
+    });
+
+    return (
+    <div>
+    <Navbar  variant="dark" className={classes.Test}>
+    <Navbar.Brand href="#home" className={classes.Brand}>
+        Your-LunchBox</Navbar.Brand>
+  </Navbar>
+ <div className={classes.Link}>
+    {finalArray.map((res,i) =>
+    (res.quantity > 0 ?
+    <div className={classes.ItemsControl}  key={i}>
+    <div className={classes.Key}> {res.name}</div>
+    <div className={classes.count}>{res.quantity}</div>
+    </div> :''))}
+  </div>    
+  </div>
+    )
+}
+
+export default lunch;

@@ -1,0 +1,45 @@
+.Link {
+    width:40%;
+    margin-left: 280px; 
+    
+     box-sizing: 3px 1px #ccc;
+     border-width: 20px;
+
+
+}
+.Test {
+    /* margin-left:50px;
+    font-style: italic; */
+    width: 40%;
+    margin-top: 40px;
+    margin-left: 280px;
+    
+    background-color: salmon;
+}
+.Brand {
+    margin-left:80px;
+    color: skyblue;
+    
+
+} 
+.Lunch {
+    background-color: slateblue;
+}
+.ItemsControl
+{
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin:0px 0;
+}
+
+.Key {
+    padding: 10px;
+    font-weight: bold;
+    width: 60px;
+    margin-left: 70px;;
+}
+.ItemsControl .count {
+    color: green;
+    margin-right:70px;
+}
