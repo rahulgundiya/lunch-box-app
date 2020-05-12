@@ -38,8 +38,8 @@ class LunchItems extends Component {
 
     }
 removeIngredientHandler=(quantity)=>{
-
-            const oldCount = this.state.ingredients[quantity];  
+    console.log("quantity",this.state.ingredients[quantity.name])
+            const oldCount = this.state.ingredients[quantity.name];  
             if(oldCount <=0)
             {
                 return;
@@ -53,7 +53,7 @@ removeIngredientHandler=(quantity)=>{
             }
             //console.log('UpdatedIngredients' ,  updatedIngredients)
         
-            updatedIngredients[quantity] = updatedCount;
+            updatedIngredients[quantity.name] = updatedCount;
             this.setState({ ingredients:updatedIngredients})
             
         
@@ -71,11 +71,10 @@ return (
          <div className={classes.Link}>
                    
    <Items ingredientsAdd={this.addIngredientHandler}
-    ingredientRemoved ={this.removeIngredientHandler}
+  
 />
  </div>
-<Lunch ingredients= {this.state.ingredients}
-         onClick ={this.props.removedHandler} />
+<Lunch ingredients= {this.state.ingredients} removeIngredientHandler={this.removeIngredientHandler} />
 </ReactAux>
 )
 
