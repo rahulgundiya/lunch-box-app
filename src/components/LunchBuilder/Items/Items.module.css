@@ -1,5 +1,5 @@
 .Items{
-    width :100% ;
+    
     background-color: pink;
     
      display:flex ; 
@@ -8,4 +8,14 @@
     box-shadow: 0 2px 1px #ccc;
     /* margin:auto; */
      padding :10px 0;  
+}
+@media (max-width: 500px) {
+    .Items {
+        width: 485px;
+    }
+}
+@media (min-width: 500px) {
+    .Items {
+        width: 450px;
+    }
 }

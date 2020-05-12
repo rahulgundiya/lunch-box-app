@@ -37,11 +37,30 @@ class LunchItems extends Component {
 
 
     }
-    componentDidMount()
-    {
-        console.log('Hi State Data' , this.state.ingredients);
-    }
+removeIngredientHandler=(quantity)=>{
 
+            const oldCount = this.state.ingredients[quantity];  
+            if(oldCount <=0)
+            {
+                return;
+            }
+            const updatedCount = oldCount-1;                                                                                                             
+            console.log('hii updatedcount' , updatedCount)
+           
+            const updatedIngredients = {               
+                ...this.state.ingredients                 
+        
+            }
+            //console.log('UpdatedIngredients' ,  updatedIngredients)
+        
+            updatedIngredients[quantity] = updatedCount;
+            this.setState({ ingredients:updatedIngredients})
+            
+        
+        }
+         
+    
+   
     render(){
             
     console.log("state",this.state)    
@@ -52,9 +71,11 @@ return (
          <div className={classes.Link}>
                    
    <Items ingredientsAdd={this.addIngredientHandler}
+    ingredientRemoved ={this.removeIngredientHandler}
 />
  </div>
-<Lunch ingredients= {this.state.ingredients} />
+<Lunch ingredients= {this.state.ingredients}
+         onClick ={this.props.removedHandler} />
 </ReactAux>
 )
 

@@ -1,12 +1,32 @@
 
-.Test {
-    /* margin-left:50px;
-    font-style: italic; */
+/* .Test {
+    
     width: 40%;
-}
+} */
 .Brand {
     margin-left:50px;
 }   
 
+/* @media (min-width: 500px) {
+    .Test {
+        width: 450px;
+    }
+}
+@media (max-width: 500px) {
+    .Items {
+        width: 485px;
+    }
+} */
 
 
+
+@media (max-width: 500px) {
+    .Test {
+        width: 485px;
+    }
+}
+@media (min-width: 500px) {
+    .Test {
+        width: 450px;
+    }
+}

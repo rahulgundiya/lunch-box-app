@@ -12,7 +12,7 @@
     font-style: italic; */
     width: 40%;
     margin-top: 40px;
-    margin-left: 280px;
+    margin-left: 200px;
     
     background-color: salmon;
 }
@@ -22,6 +22,17 @@
     
 
 } 
+@media (max-width: 500px) {
+    .Test {
+        width: 400px;
+    }
+}
+@media (min-width: 500px) {
+    .Test {
+        width: 400px;
+    }
+}
+
 .Lunch {
     background-color: slateblue;
 }
@@ -37,9 +48,21 @@ margin:0px 0;
     padding: 10px;
     font-weight: bold;
     width: 60px;
-    margin-left: 70px;;
-}
-.ItemsControl .count {
+    margin-left: 50px;
+
+}    
+.Count {
     color: green;
-    margin-right:70px;
+    margin-right: 70px;
+
+    
 }
+/* .Button
+{
+    color:lightcoral;
+    background-color: lightpink;
+    font-weight: bold;
+    width: 45px;
+    margin-right: 20px;
+
+} */
