@@ -1,39 +1,24 @@
 import React from 'react'
 import classes from './Lunch.module.css';
 import Navbar from 'react-bootstrap/Navbar'
-//import ReactDOM from "react-dom";
-
-
-
 
 const Lunch = (props) => {
   
     const { ingredients } = props
-    let finalArray = []
-    
-   
-      
+    let finalArray = []      
         Object.keys(ingredients).map(function (key) {
             return  finalArray.push({ name: key, quantity: ingredients[key] })
               // return [key:key, ingredients[key]];
           });
           console.log('Ingredients' , finalArray);
-                
-           
-
-
-       
-       
-  
-      
-   
 
     return (
-    
     <div>
+        
+            
     <Navbar  variant="dark" className={classes.Test}>
-    <Navbar.Brand href="#home" className={classes.Brand}>
-        Your-LunchBox</Navbar.Brand>
+    <Navbar.Brand href="#home" className={classes.Brand} >
+    Your-LunchBox  {props.price>0 ? <p className={classes.Price}>Current-Price:{props.price}</p>:''} </Navbar.Brand>
   </Navbar>
  <div className={classes.Link}>
     {finalArray.map((res,i) =>
@@ -43,7 +28,9 @@ const Lunch = (props) => {
     <div className={classes.Count}>{res.quantity}</div>
     <button className={classes.Button} onClick={()=>{props.removeIngredientHandler(res)}}>Less</button>
     </div> :''))}
-  </div>    
+  </div> 
+   <button 
+    className={classes.Order} disabled={!props.show} >Order</button> 
   </div>
     )
     }

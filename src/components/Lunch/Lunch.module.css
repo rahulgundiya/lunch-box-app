@@ -1,26 +1,22 @@
-.Link {
-    width:40%;
-    margin-left: 280px; 
-    
-     box-sizing: 3px 1px #ccc;
-     border-width: 20px;
 
-
-}
 .Test {
     /* margin-left:50px;
     font-style: italic; */
     width: 40%;
-    margin-top: 40px;
+     margin-top: 40px;
+     height:50px;
     margin-left: 200px;
-    
     background-color: salmon;
 }
 .Brand {
-    margin-left:80px;
     color: skyblue;
-    
-
+    margin:0;
+    padding:0;
+    list-style: none;
+    height:50%;
+    flex-flow: row;
+    align-items:center;
+    display:flex;
 } 
 @media (max-width: 500px) {
     .Test {
@@ -36,33 +32,56 @@
 .Lunch {
     background-color: slateblue;
 }
-.ItemsControl
+.ItemsControl 
 {
 display: flex;
 justify-content: space-between;
 align-items: center;
 margin:0px 0;
+width:350px;
+margin-left:240px;
+border-width: 20px;
+box-sizing: 3px 1px #ccc;
+
 }
 
-.Key {
-    padding: 10px;
+.Key {   
     font-weight: bold;
     width: 60px;
-    margin-left: 50px;
-
 }    
 .Count {
     color: green;
-    margin-right: 70px;
-
-    
+    margin-left: 40px;   
 }
+
 .Button
 {
     color:lightcoral;
     background-color: lightpink;
     font-weight: bold;
     width: 45px;
-    margin-right: 20px;
+    margin-left:80px;
+}
+.Price {
+    font-style: oblique;
+     color:black;
+     margin-left: 90px;
+     margin-top: 20px;   
+}
+.Order{
+    color:blueviolet;
+    outline:none;
+    cursor: progress;
+    font-weight: bold;
+    padding:5px;
+    margin:5px;
 
+}
+
+.Order:hover,.Order:active{
+    background-color: aqua;
+}
+.Order:disabled {
+color:white;
+cursor: not-allowed;
 }
