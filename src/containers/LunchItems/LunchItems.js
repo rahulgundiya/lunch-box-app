@@ -3,14 +3,20 @@ import Items from '../../components/LunchBuilder/Items/Items'
 import ReactAux from '../../hoc/ReactAux/ReactAux'
 import classes from './LunchItems.module.css'
 import Lunch from '../../components/Lunch/Lunch';
+
 import axios from '../../axios-order'
+import Modal from '../../components/UI/Modal/Modal'
+import NavBar from '../../components/NavBar/NavBar'
+import OrderSummary from '../../components/Lunch/OrderSummary/OrderSummary';
+
 //import NavBar from '../../components/NavBar/NavBar'
 let INGREDIENT_PRICES = {}
 class LunchItems extends Component {
     state = {
         ingredients: {},
         totalPrice: 0,
-        show:false
+        show:false,
+        purchasable:false
 
     }
 
@@ -82,17 +88,34 @@ class LunchItems extends Component {
         {
             this.setState({show:false})
         }
-
-       console.log('Data' , updatedIngredients[quantity.name]);
+        console.log('Data' , updatedIngredients[quantity.name]);
          this.setState({ totalPrice:newPrice , ingredients: updatedIngredients })
-
-          
-console.log('Less' , updatedIngredients[quantity.name]);
-
-        
-
+        console.log('Less' , updatedIngredients[quantity.name]);
     }
 
+    purchaseHandler=()=>{
+        this.setState({purchasable:true})
+    }
+purchaseCancelledHandler=()=>{
+this.setState({purchasable:false})
+}
+purchaseContinuedHandler=()=>{
+   const queryParam =[];
+   for(let i in this.state.ingredients)
+   {
+       queryParam.push(encodeURIComponent(i)+'='+ encodeURIComponent(this.state.ingredients[i]))
+    console.log('queryParam' , queryParam);
+    }
+    queryParam.push('price=' +this.state.totalPrice);
+    const queryString = queryParam.join('&')
+    console.log('queryString' , queryString);
+    this.props.history.push({
+        pathname: '/contact-data',
+        search: '?' +queryString
+        
+      })
+      
+}
 
 
     render() {
@@ -102,23 +125,24 @@ console.log('Less' , updatedIngredients[quantity.name]);
         console.log("totalPrice", this.state.totalPrice);
 
         return (
-
-            <ReactAux>
+             <ReactAux>
+                <NavBar/>
                 <div className={classes.Link}>
+                <Items ingredientsAdd={this.addIngredientHandler}  />
+              </div>
+            <Lunch ingredients={this.state.ingredients}
+               removeIngredientHandler={this.removeIngredientHandler}
+               price={this.state.totalPrice}
+               show={this.state.show}
+               orderd={this.purchaseHandler}  />
+               <Modal show={this.state.purchasable}>
+                <OrderSummary ingredients={this.state.ingredients}
+                purchaseCancelled={this.purchaseCancelledHandler}
+                purchaseContinued={this.purchaseContinuedHandler}/>
+               </Modal>
 
-                    <Items ingredientsAdd={this.addIngredientHandler}
-                   
-                    />
-                </div>
-                <Lunch ingredients={this.state.ingredients}
-                    removeIngredientHandler={this.removeIngredientHandler}
-                    price={this.state.totalPrice}
-                    show={this.state.show}
-                    
-                />
             </ReactAux>
         )
-
     }
 }
 
