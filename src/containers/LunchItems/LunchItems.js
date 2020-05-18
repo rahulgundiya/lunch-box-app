@@ -3,7 +3,6 @@ import Items from '../../components/LunchBuilder/Items/Items'
 import ReactAux from '../../hoc/ReactAux/ReactAux'
 import classes from './LunchItems.module.css'
 import Lunch from '../../components/Lunch/Lunch';
-
 import axios from '../../axios-order'
 import Modal from '../../components/UI/Modal/Modal'
 import NavBar from '../../components/NavBar/NavBar'
@@ -11,7 +10,7 @@ import OrderSummary from '../../components/Lunch/OrderSummary/OrderSummary';
 
 //import NavBar from '../../components/NavBar/NavBar'
 let INGREDIENT_PRICES = {}
-class LunchItems extends Component {
+class LunchItems extends Component { 
     state = {
         ingredients: {},
         totalPrice: 0,
@@ -19,31 +18,23 @@ class LunchItems extends Component {
         purchasable:false
 
     }
-
     componentDidMount() {
-        axios.get('https://lunch-app-cf664.firebaseio.com/ingredients.json')
+        axios.get('/ingredients.json')
             .then(res => {
                 console.log('res', res.data);
                 this.setState({ ingredients: res.data });
                 console.log('ingredients', this.state.ingredients)
             })
-     
-            axios.get('https://lunch-app-cf664.firebaseio.com/totalPrice.json')
+            axios.get('/totalPrice.json')
             .then(res=>{
                 INGREDIENT_PRICES=res.data;
                 console.log('Price' , INGREDIENT_PRICES);
             })
-
     }
-
-
-
-
     addIngredientHandler = (type) => {
         // console.log('Hi'  ,this.state.ingredients[type]);
         const oldCount = this.state.ingredients[type];   //type of ingredient are 
         const updatedCount = oldCount + 1;               //in ingredients
-        
         // console.log('Ingredients' , this.state.ingredients)
         const updatedIngredients = {
             ...this.state.ingredients
@@ -60,12 +51,9 @@ class LunchItems extends Component {
         const newPrice=oldPrice+price;
         console.log('hii Type', updatedIngredients);
         this.setState({totalPrice:newPrice , ingredients: updatedIngredients })
-
         const data = this.state.ingredients;
         console.log('hii Data', data)
-
-
-    }
+}
     removeIngredientHandler = (quantity) => {
         console.log("quantity", this.state.ingredients[quantity.name])
         const oldCount = this.state.ingredients[quantity.name];
@@ -77,8 +65,7 @@ class LunchItems extends Component {
 
         const updatedIngredients = {
             ...this.state.ingredients
-
-        }
+                }
         //console.log('UpdatedIngredients' ,  updatedIngredients)
            const price = INGREDIENT_PRICES[quantity.name];
            const oldPrice = this.state.totalPrice;
@@ -116,11 +103,8 @@ purchaseContinuedHandler=()=>{
       })
       
 }
-
-
     render() {
-
-        console.log("State", this.state.ingredients)
+       console.log("State", this.state.ingredients)
         console.log("show", this.state.show)
         console.log("totalPrice", this.state.totalPrice);
 
@@ -137,13 +121,12 @@ purchaseContinuedHandler=()=>{
                orderd={this.purchaseHandler}  />
                <Modal show={this.state.purchasable}>
                 <OrderSummary ingredients={this.state.ingredients}
+                totalPrice={this.state.totalPrice}
                 purchaseCancelled={this.purchaseCancelledHandler}
                 purchaseContinued={this.purchaseContinuedHandler}/>
                </Modal>
-
             </ReactAux>
         )
     }
 }
-
 export default LunchItems;

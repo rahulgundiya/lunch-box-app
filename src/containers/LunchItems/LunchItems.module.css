@@ -1,12 +1,13 @@
 .Link {
-    width:33%;
+    width:100%;
      background-color: lemonchiffon ;
      box-sizing: 3px 1px #ccc;
 
 }
-@media (max-width:400px)
+@media (min-width:600px)
 {
     .Link{
+        width:500px;
         box-sizing: 3px 1px #ccc;
 
     }

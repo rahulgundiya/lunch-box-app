@@ -1,6 +1,8 @@
 import React ,{Component} from 'react'
 import Input from '../../components/UI/Input/Input'
 import classes from './Contactdata.module.css';
+import axios from '../../axios-order'
+import Spinner from '../../components/UI/Spinner/Spinner'
  class ContactData extends Component {
 state={
       orderForm:{
@@ -80,14 +82,14 @@ state={
     mob:{
         elementType:'input',
         elementConfig:{
-            type:'text',
+            type:'number',
             placeholder:'Your Mob'  
         },
     
     validation:{
         required:true,
-        maxLength:6,
-            minLength:4
+        maxLength:10,
+            minLength:10
 
        },
     value:'',
@@ -110,7 +112,8 @@ state={
 },
     formIsValid:false,
     ingredients:null,
-    totalPrice:0
+    totalPrice:0,
+    loading:false
 }
 
 inputChangedHandler=(event ,identifier)=>
@@ -181,27 +184,43 @@ else {
     this.setState({ingredients:ingredients , totalPrice:price})
 }
 
-orderFormHandler=()=>{
+orderFormHandler=(event)=>{
+    event.preventDefault();
+
+    const formData = {};
+    for(let identifier in this.state.orderForm)
+    {
+        formData[identifier]=this.state.orderForm[identifier].value;
+
+    }
+    console.log('formData' ,formData);
+    this.setState({loading:true})
+ const order={
+    ingredients:this.state.ingredients,
+    totalPrice:this.state.totalPrice,
+    form:formData
 
 }
+console.log('Order Object' , order)
+axios.post('/orders.json' ,order)
+.then(res=>{
+    console.log('Data Submittted' , res);
+    this.setState({loading:false})
+    this.props.history.push('/')
+})
 
-     render()
+}
+ render()
      {
-         
-         console.log('hii orderForm' , this.state.orderForm)
-         console.log('hii totalPrice' , this.state.totalPrice)
 const formArrayElement =[];
 for(let key in this.state.orderForm)
 {
-    formArrayElement.push({
+       formArrayElement.push({
         id:key,
         config:this.state.orderForm[key]
     })
 }
-// {formArrayElement.map(inputElement=>{
-//     console.log('Input-Placeholder' , inputElement.config.elementConfig.placeholder);
-// })}
-let form =(<div> <form onSubmit={this.orderFormHandler}>
+let form =(<form onSubmit={this.orderFormHandler}>
     {formArrayElement.map(formElement=>(
         <Input key={formElement.id}
          elementType={formElement.config.elementType}
@@ -214,10 +233,15 @@ let form =(<div> <form onSubmit={this.orderFormHandler}>
             formElement.id)}
         />
     ))}
-    <button className={classes.Back} onClick={this.homePage}>Back</button>
-   <button className={classes.Order}>Order</button>
-   </form>
-   </div>)
+     <button className={classes.Back} onClick={this.homePage}>
+         Back</button> 
+   <button className={classes.Order} disabled={!this.state.formIsValid}>Order</button>
+   </form>);
+   if(this.state.loading)
+   {
+       form=<Spinner/>
+   }
+
 return (
              <div className={classes.Contactdata}>
              <h3 style={{color:"blue"}}>Enter Your Contact Details</h3>

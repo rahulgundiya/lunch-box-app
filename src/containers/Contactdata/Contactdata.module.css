@@ -43,3 +43,7 @@
 .Order:hover,.Order:active{
     background-color:navy;
 }
+.Order:disabled {
+    color:white;
+    cursor:not-allowed;
+}

@@ -2,7 +2,7 @@
 .Test {
     /* margin-left:50px;
     font-style: italic; */
-    width: 40%;
+    width: 100%;
      margin-top: 40px;
      height:50px;
     margin-left: 200px;
@@ -18,16 +18,16 @@
     align-items:center;
     display:flex;
 } 
-@media (max-width: 500px) {
+@media (min-width: 600px) {
+    .Test {
+        width: 500px;
+    }
+}
+/* @media (min-width: 500px) {
     .Test {
         width: 400px;
     }
-}
-@media (min-width: 500px) {
-    .Test {
-        width: 400px;
-    }
-}
+} */
 
 .Lunch {
     background-color: slateblue;
