@@ -16,21 +16,15 @@
 .Price {
     font-style: oblique;
      color:black;
-     margin-left: 250px;
+     margin-left: 280px;
+     font-size: 20px;
+     height:50px;
      margin-top: 20px;   
 }
-
-/* @media (min-width: 500px) {
-    .Test {
-        width: 450px;
-    }
+.Price:hover,
+.Price:active{
+    color:salmon;
 }
-@media (max-width: 500px) {
-    .Items {
-        width: 485px;
-    }
-} */
-
 
 
 @media (min-width: 600px) {

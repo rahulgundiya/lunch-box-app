@@ -1,14 +1,20 @@
 import Navbar from 'react-bootstrap/Navbar'
 import React from 'react';
 import classes from './NavBar.module.css'
+import {NavLink} from 'react-router-dom'
 const navBar =()=>{
 
 return (
     <> 
   <Navbar bg="primary" variant="dark" className={classes.Test}>
-    <Navbar.Brand href="#home" className={classes.Brand}>
-        Today-Menu<p className={classes.Price}>
-          Orders</p></Navbar.Brand>
+    <Navbar.Brand  className={classes.Brand}>
+        Today-Menu 
+            
+        </Navbar.Brand>
+        <NavLink 
+             to="/orders" className={classes.Price} >
+              Orders</NavLink>
+        
   </Navbar>
   </>
 )

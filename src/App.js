@@ -6,6 +6,7 @@ import Contactdata from './containers/Contactdata/Contactdata'
 import {BrowserRouter,Switch ,Route} from 'react-router-dom'
 //import LunchItems from './containers/LunchItems/LunchItems'
 import LunchItems from './containers/LunchItems/LunchItems'
+import Orders from './containers/Orders/orders'
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Route path = "/contact-data"  component={Contactdata}/>
         <Route path = "/" exact  component={LunchItems}/>
         <Route path = "/lunch-items"  component={LunchItems}/>
+        <Route path = "/orders"  component={Orders}/>
+        
         
        </Switch>
       {/* <NavBar/>
