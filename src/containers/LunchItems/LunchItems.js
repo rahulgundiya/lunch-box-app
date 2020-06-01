@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import Items from '../../components/LunchBuilder/Items/Items'
 import ReactAux from '../../hoc/ReactAux/ReactAux'
 import classes from './LunchItems.module.css'
+import {connect} from 'react-redux'
 import Lunch from '../../components/Lunch/Lunch';
+import * as lunchBuilderAction from '../../store/actions/Index'
 import axios from '../../axios-order'
 import Modal from '../../components/UI/Modal/Modal'
 import NavBar from '../../components/NavBar/NavBar'
@@ -104,23 +106,25 @@ purchaseContinuedHandler=()=>{
       
 }
     render() {
-       console.log("State", this.state.ingredients)
-        console.log("show", this.state.show)
-        console.log("totalPrice", this.state.totalPrice);
+    //    console.log("State", this.state.ingredients)
+    //     console.log("show", this.state.show)
+    //     console.log("totalPrice", this.state.totalPrice);
+        console.log('Reducer Ings' ,this.props.ings);
+        console.log('Add Ings' ,this.props.onIngredientAdd);
 
         return (
              <ReactAux>
                 <NavBar/>
                 <div className={classes.Link}>
-                <Items ingredientsAdd={this.addIngredientHandler}  />
+                <Items ingredientsAdd={this.props.onIngredientAdd}  />
               </div>
-            <Lunch ingredients={this.state.ingredients}
-               removeIngredientHandler={this.removeIngredientHandler}
+            <Lunch ingredients={this.props.ings}
+               removeIngredientHandler={this.props.onIngredientRemoved}
                price={this.state.totalPrice}
                show={this.state.show}
                orderd={this.purchaseHandler}  />
                <Modal show={this.state.purchasable}>
-                <OrderSummary ingredients={this.state.ingredients}
+                <OrderSummary ingredients={this.props.ings}
                 totalPrice={this.state.totalPrice}
                 purchaseCancelled={this.purchaseCancelledHandler}
                 purchaseContinued={this.purchaseContinuedHandler}/>
@@ -129,4 +133,23 @@ purchaseContinuedHandler=()=>{
         )
     }
 }
-export default LunchItems;
+const mapStateToProps=(state)=>{
+    return {
+        ings:state.lunchBoxReducers.ingredients
+
+    }
+   
+
+}
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        onIngredientAdd:(ingName)=>
+            dispatch(lunchBuilderAction.addIngredient(ingName)),
+            onIngredientRemoved:(ingName)=>
+            dispatch(lunchBuilderAction.removeIngredient(ingName))
+            
+
+        
+    }
+}
+export default connect (mapStateToProps,mapDispatchToProps)(LunchItems);

@@ -34,7 +34,7 @@ class Orders extends Component {
             ))}  
         
         </div>
-        )
+        ) 
     }
 
 }
