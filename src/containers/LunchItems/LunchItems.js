@@ -11,7 +11,7 @@ import NavBar from '../../components/NavBar/NavBar'
 import OrderSummary from '../../components/Lunch/OrderSummary/OrderSummary';
 
 //import NavBar from '../../components/NavBar/NavBar'
-let INGREDIENT_PRICES = {}
+//let INGREDIENT_PRICES = {}
 class LunchItems extends Component { 
     state = {
         ingredients: {},
@@ -21,66 +21,66 @@ class LunchItems extends Component {
 
     }
     componentDidMount() {
-        axios.get('/ingredients.json')
-            .then(res => {
-                console.log('res', res.data);
-                this.setState({ ingredients: res.data });
-                console.log('ingredients', this.state.ingredients)
-            })
-            axios.get('/totalPrice.json')
-            .then(res=>{
-                INGREDIENT_PRICES=res.data;
-                console.log('Price' , INGREDIENT_PRICES);
-            })
+        // axios.get('/ingredients.json')
+        //     .then(res => {
+        //         console.log('res', res.data);
+        //         this.setState({ ingredients: res.data });
+        //         console.log('ingredients', this.state.ingredients)
+        //     })
+        //     axios.get('/totalPrice.json')
+        //     .then(res=>{
+        //         INGREDIENT_PRICES=res.data;
+        //         console.log('Price' , INGREDIENT_PRICES);
+        //     })
     }
-    addIngredientHandler = (type) => {
-        // console.log('Hi'  ,this.state.ingredients[type]);
-        const oldCount = this.state.ingredients[type];   //type of ingredient are 
-        const updatedCount = oldCount + 1;               //in ingredients
-        // console.log('Ingredients' , this.state.ingredients)
-        const updatedIngredients = {
-            ...this.state.ingredients
-        }
+//     addIngredientHandler = (type) => {
+//         // console.log('Hi'  ,this.state.ingredients[type]);
+//         const oldCount = this.state.ingredients[type];   //type of ingredient are 
+//         const updatedCount = oldCount + 1;               //in ingredients
+//         // console.log('Ingredients' , this.state.ingredients)
+//         const updatedIngredients = {
+//             ...this.state.ingredients
+//         }
         
-        updatedIngredients[type] = updatedCount;
-        console.log('UpdateIngredients' , updatedIngredients[type]);
-        if(updatedIngredients[type]>0)
-        {
-            this.setState({show:true})
-        }
-        const price=INGREDIENT_PRICES[type];
-        const oldPrice=this.state.totalPrice;
-        const newPrice=oldPrice+price;
-        console.log('hii Type', updatedIngredients);
-        this.setState({totalPrice:newPrice , ingredients: updatedIngredients })
-        const data = this.state.ingredients;
-        console.log('hii Data', data)
-}
-    removeIngredientHandler = (quantity) => {
-        console.log("quantity", this.state.ingredients[quantity.name])
-        const oldCount = this.state.ingredients[quantity.name];
-        if (oldCount <= 0) {
-            return;
-        }
-        const updatedCount = oldCount - 1;
-        console.log('hii updatedcount', updatedCount)
+//         updatedIngredients[type] = updatedCount;
+//         console.log('UpdateIngredients' , updatedIngredients[type]);
+//         if(updatedIngredients[type]>0)
+//         {
+//             this.setState({show:true})
+//         }
+//         const price=INGREDIENT_PRICES[type];
+//         const oldPrice=this.state.totalPrice;
+//         const newPrice=oldPrice+price;
+//         console.log('hii Type', updatedIngredients);
+//         this.setState({totalPrice:newPrice , ingredients: updatedIngredients })
+//         const data = this.state.ingredients;
+//         console.log('hii Data', data)
+// }
+//     removeIngredientHandler = (quantity) => {
+//         console.log("quantity", this.state.ingredients[quantity.name])
+//         const oldCount = this.state.ingredients[quantity.name];
+//         if (oldCount <= 0) {
+//             return;
+//         }
+//         const updatedCount = oldCount - 1;
+//         console.log('hii updatedcount', updatedCount)
 
-        const updatedIngredients = {
-            ...this.state.ingredients
-                }
-        //console.log('UpdatedIngredients' ,  updatedIngredients)
-           const price = INGREDIENT_PRICES[quantity.name];
-           const oldPrice = this.state.totalPrice;
-           const newPrice= oldPrice-price;
-        updatedIngredients[quantity.name] = updatedCount;
-        if(newPrice===0)
-        {
-            this.setState({show:false})
-        }
-        console.log('Data' , updatedIngredients[quantity.name]);
-         this.setState({ totalPrice:newPrice , ingredients: updatedIngredients })
-        console.log('Less' , updatedIngredients[quantity.name]);
-    }
+//         const updatedIngredients = {
+//             ...this.state.ingredients
+//                 }
+//         //console.log('UpdatedIngredients' ,  updatedIngredients)
+//            const price = INGREDIENT_PRICES[quantity.name];
+//            const oldPrice = this.state.totalPrice;
+//            const newPrice= oldPrice-price;
+//         updatedIngredients[quantity.name] = updatedCount;
+//         if(newPrice===0)
+//         {
+//             this.setState({show:false})
+//         }
+//         console.log('Data' , updatedIngredients[quantity.name]);
+//          this.setState({ totalPrice:newPrice , ingredients: updatedIngredients })
+//         console.log('Less' , updatedIngredients[quantity.name]);
+//     }
 
     purchaseHandler=()=>{
         this.setState({purchasable:true})
@@ -108,10 +108,10 @@ purchaseContinuedHandler=()=>{
     render() {
     //    console.log("State", this.state.ingredients)
     //     console.log("show", this.state.show)
-    //     console.log("totalPrice", this.state.totalPrice);
-        console.log('Reducer Ings' ,this.props.ings);
-        console.log('Add Ings' ,this.props.onIngredientAdd);
-
+        console.log("Show", this.props.show);
+       // console.log('Removed Ings' ,this.props.onIngredientRemoved);
+      
+      
         return (
              <ReactAux>
                 <NavBar/>
@@ -120,12 +120,12 @@ purchaseContinuedHandler=()=>{
               </div>
             <Lunch ingredients={this.props.ings}
                removeIngredientHandler={this.props.onIngredientRemoved}
-               price={this.state.totalPrice}
-               show={this.state.show}
+               price={this.props.totalPrice}
+               show={this.props.show}
                orderd={this.purchaseHandler}  />
                <Modal show={this.state.purchasable}>
                 <OrderSummary ingredients={this.props.ings}
-                totalPrice={this.state.totalPrice}
+                totalPrice={this.props.totalPrice}
                 purchaseCancelled={this.purchaseCancelledHandler}
                 purchaseContinued={this.purchaseContinuedHandler}/>
                </Modal>
@@ -135,7 +135,9 @@ purchaseContinuedHandler=()=>{
 }
 const mapStateToProps=(state)=>{
     return {
-        ings:state.lunchBoxReducers.ingredients
+        ings:state.lunchBoxReducers.ingredients,
+        show:state.lunchBoxReducers.show,
+        totalPrice:state.lunchBoxReducers.totalPrice
 
     }
    

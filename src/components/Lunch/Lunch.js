@@ -24,7 +24,7 @@ const Lunch = (props) => {
     {/* <button className={classes.Button} onClick={()=>
       {props.removeIngredientHandler(res)}}>Less</button> */}
       <button className={classes.Button} 
-      onClick={()=>{props.removeIngredientHandler(res)}}>Less
+      onClick={()=>{props.removeIngredientHandler(res.name)}}>Less
         </button>
     </div> :''))}
   </div> 
