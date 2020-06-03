@@ -1,2 +1,5 @@
 export {
-    addIngredient,removeIngredient} from './lunchBoxAction';
+    addIngredient,
+    removeIngredient ,
+     initIngredients,
+     initTotalPrice} from './lunchBoxAction';

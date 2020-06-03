@@ -21,6 +21,9 @@ class LunchItems extends Component {
 
     }
     componentDidMount() {
+        console.log('my data' , this.props)
+        this.props.onInitIngredients();
+        this.props.onInitTotalPrice();
         // axios.get('/ingredients.json')
         //     .then(res => {
         //         console.log('res', res.data);
@@ -148,10 +151,14 @@ const mapDispatchToProps=(dispatch)=>{
         onIngredientAdd:(ingName)=>
             dispatch(lunchBuilderAction.addIngredient(ingName)),
             onIngredientRemoved:(ingName)=>
-            dispatch(lunchBuilderAction.removeIngredient(ingName))
+            dispatch(lunchBuilderAction.removeIngredient(ingName)),
+            onInitIngredients:(ingName)=>
+            dispatch(lunchBuilderAction.initIngredients()),
+            onInitTotalPrice:(totalPrice)=>
+            dispatch(lunchBuilderAction.initTotalPrice())
             
 
         
     }
 }
-export default connect (mapStateToProps,mapDispatchToProps)(LunchItems);
+export default connect (mapStateToProps,mapDispatchToProps)(LunchItems ,axios);
