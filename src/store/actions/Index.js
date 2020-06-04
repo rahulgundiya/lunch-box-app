@@ -3,3 +3,5 @@ export {
     removeIngredient ,
      initIngredients,
      initTotalPrice} from './lunchBoxAction';
+export {
+    purchaseLunch  } from  './ordersAction'

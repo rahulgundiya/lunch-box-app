@@ -2,6 +2,9 @@ import React ,{Component} from 'react'
 import Input from '../../components/UI/Input/Input'
 import classes from './Contactdata.module.css';
 import axios from '../../axios-order'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import  * as action from '../../store/actions/Index'
 import Spinner from '../../components/UI/Spinner/Spinner'
  class ContactData extends Component {
 state={
@@ -196,22 +199,34 @@ orderFormHandler=(event)=>{
     console.log('formData' ,formData);
     this.setState({loading:true})
  const order={
-    ingredients:this.state.ingredients,
-    totalPrice:this.state.totalPrice,
+    ingredients:this.props.ings,
+    totalPrice:this.props.price,
     form:formData
 
 }
-console.log('Order Object' , order)
-axios.post('/orders.json' ,order)
-.then(res=>{
-    console.log('Data Submittted' , res);
-    this.setState({loading:false})
-    this.props.history.push('/')
-})
+this.props.onOrderLunch(order);
+
+
+// console.log('Order Object' , order)
+// axios.post('/orders.json' ,order)
+// .then(res=>{
+//     console.log('Data Submittted' , res);
+//     this.setState({loading:false})
+//     this.props.history.push('/')
+// })
 
 }
  render()
      {
+         console.log('Contact data' , this.props.price)
+         console.log('Loading data' , this.props.loading)
+         console.log('Purchased data' , this.props.purchased)
+         let summary =null;
+         if(this.props.ings)
+         {
+             summary =this.props.purchased?<Redirect to ="/"/>:null;
+         }
+            
 const formArrayElement =[];
 for(let key in this.state.orderForm)
 {
@@ -237,7 +252,7 @@ let form =(<form onSubmit={this.orderFormHandler}>
          Back</button> 
    <button className={classes.Order} disabled={!this.state.formIsValid}>Order</button>
    </form>);
-   if(this.state.loading)
+   if(this.props.loading)
    {
        form=<Spinner/>
    }
@@ -246,10 +261,28 @@ return (
              <div className={classes.Contactdata}>
              <h3 style={{color:"blue"}}>Enter Your Contact Details</h3>
             {form}
+            {summary}
+          
              </div>
          )
 
      }
  }
+ const mapStateToProps=(state)=>{
+     return {
+         ings:state.lunchBoxReducers.ingredients,
+         price:state.lunchBoxReducers.totalPrice,
+         loading:state.ordersReducers.loading,
+         purchased:state.ordersReducers.purchased
+     }
 
- export default ContactData;
+ }
+const mapDispatchToProps=dispatch=>{
+    return {
+        onOrderLunch:(orderData)=>dispatch(action.purchaseLunch(orderData))
+
+
+    }
+}
+
+ export default  connect (mapStateToProps,mapDispatchToProps)(ContactData,axios);

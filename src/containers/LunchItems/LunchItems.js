@@ -14,11 +14,7 @@ import OrderSummary from '../../components/Lunch/OrderSummary/OrderSummary';
 //let INGREDIENT_PRICES = {}
 class LunchItems extends Component { 
     state = {
-        ingredients: {},
-        totalPrice: 0,
-        show:false,
         purchasable:false
-
     }
     componentDidMount() {
         console.log('my data' , this.props)
