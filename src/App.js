@@ -13,10 +13,10 @@ function App() {
     <BrowserRouter>
     <div className="App">
     <Switch>
-        <Route path = "/contact-data"  component={Contactdata}/>
-        <Route path = "/" exact  component={LunchItems}/>
-        <Route path = "/lunch-items"  component={LunchItems}/>
-        <Route path = "/orders"  component={Orders}/>
+      <Route path = "/" exact  component={LunchItems}/>
+      <Route path = "/lunch-items" exact  component={LunchItems}/>
+      <Route path = "/contact-data"  component={Contactdata}/>
+       <Route path = "/orders"  component={Orders}/>
         
         
        </Switch>

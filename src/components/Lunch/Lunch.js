@@ -9,13 +9,14 @@ const Lunch = (props) => {
               // return [key:key, ingredients[key]];
           });
           console.log('Ingredients' , finalArray);
-    return(
+    return (
     <div>
-        {props.show ? <Navbar  variant="dark" className={classes.Test}>
+     {props.show? <div>
+         <Navbar  variant="dark" className={classes.Test}>
     <Navbar.Brand href="#home" className={classes.Brand} >
     Your-LunchBox  {props.price>0 ? <p className={classes.Price}>Current-Price:{props.price}</p>:''} </Navbar.Brand>
-  </Navbar>:''}
-    <div className={classes.Link}>
+  </Navbar>
+   <div className={classes.Link}>
     {finalArray.map((res,i) =>
     (res.quantity > 0 ?
     <div className={classes.ItemsControl}  key={i}>
@@ -28,10 +29,13 @@ const Lunch = (props) => {
         </button>
     </div> :''))}
   </div> 
-  {props.show? <button 
-    className={classes.Order} onClick={props.orderd} >Order</button> :''}
+   <button 
+    className={classes.Order} onClick={props.orderd} >Order</button>
   
   </div>
+  : '' }
+  </div>
+
     )
     }
 

@@ -43,3 +43,11 @@ export const setTotalPrice=(totalPrice)=>{
       }
 
   }
+
+  export const Hide=()=>{
+    return {
+        type:actionTypes.HIDE,
+    }
+
+}
+  

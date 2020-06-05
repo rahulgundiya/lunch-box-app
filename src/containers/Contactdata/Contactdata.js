@@ -3,8 +3,9 @@ import Input from '../../components/UI/Input/Input'
 import classes from './Contactdata.module.css';
 import axios from '../../axios-order'
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
+//import {Redirect} from 'react-router-dom'
 import  * as action from '../../store/actions/Index'
+//import * as lunchBuilderAction from '../../store/actions/Index'
 import Spinner from '../../components/UI/Spinner/Spinner'
  class ContactData extends Component {
 state={
@@ -113,10 +114,8 @@ state={
         validation:{}
     },
 },
-    formIsValid:false,
-    ingredients:null,
-    totalPrice:0,
-    loading:false
+    formIsValid:false
+    
 }
 
 inputChangedHandler=(event ,identifier)=>
@@ -188,16 +187,16 @@ else {
 }
 
 orderFormHandler=(event)=>{
+   // this.props.onHide();
     event.preventDefault();
-
+console.log('Loading Reducers' , this.props.loading);
     const formData = {};
     for(let identifier in this.state.orderForm)
     {
-        formData[identifier]=this.state.orderForm[identifier].value;
-
+        formData[identifier]=this.state.orderForm[identifier].value;  
     }
-    console.log('formData' ,formData);
-    this.setState({loading:true})
+    //console.log('formData' ,formData);
+       
  const order={
     ingredients:this.props.ings,
     totalPrice:this.props.price,
@@ -205,6 +204,13 @@ orderFormHandler=(event)=>{
 
 }
 this.props.onOrderLunch(order);
+// if(this.props.loading)
+// {
+//    reload= <Spinner/>
+// }
+ this.props.history.push('/') 
+
+
 
 
 // console.log('Order Object' , order)
@@ -217,16 +223,7 @@ this.props.onOrderLunch(order);
 
 }
  render()
-     {
-         console.log('Contact data' , this.props.price)
-         console.log('Loading data' , this.props.loading)
-         console.log('Purchased data' , this.props.purchased)
-         let summary =null;
-         if(this.props.ings)
-         {
-             summary =this.props.purchased?<Redirect to ="/"/>:null;
-         }
-            
+     {    
 const formArrayElement =[];
 for(let key in this.state.orderForm)
 {
@@ -252,7 +249,7 @@ let form =(<form onSubmit={this.orderFormHandler}>
          Back</button> 
    <button className={classes.Order} disabled={!this.state.formIsValid}>Order</button>
    </form>);
-   if(this.props.loading)
+   if(this.props.loading===true)
    {
        form=<Spinner/>
    }
@@ -261,9 +258,11 @@ return (
              <div className={classes.Contactdata}>
              <h3 style={{color:"blue"}}>Enter Your Contact Details</h3>
             {form}
-            {summary}
+            
+            
+            
           
-             </div>
+             </div> 
          )
 
      }
@@ -280,7 +279,7 @@ return (
 const mapDispatchToProps=dispatch=>{
     return {
         onOrderLunch:(orderData)=>dispatch(action.purchaseLunch(orderData))
-
+        
 
     }
 }

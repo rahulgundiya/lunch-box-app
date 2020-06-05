@@ -28,6 +28,14 @@ return (
             onClick={props.purchaseContinued} className={classes.Continue}>
                 CONTINUE</button> 
         </ReactAux>
-)
+) 
 }
-export default orderSummary;
+// const mapDispatchToProps=dispatch=>{
+//     return {
+//         onHide:()=>
+//             dispatch(lunchBuilderAction.Hide())
+
+
+//     }
+// }
+export default  orderSummary;

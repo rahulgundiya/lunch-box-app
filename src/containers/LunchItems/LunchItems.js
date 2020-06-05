@@ -20,6 +20,16 @@ class LunchItems extends Component {
         console.log('my data' , this.props)
         this.props.onInitIngredients();
         this.props.onInitTotalPrice();
+         if(this.props.show){
+            this.props.onHide()
+          }
+    }
+    // componentDidUpdate()
+    //     {
+    //         if(this.props.show){
+    //             this.props.onHide()
+    //         }
+    //     }
         // axios.get('/ingredients.json')
         //     .then(res => {
         //         console.log('res', res.data);
@@ -31,7 +41,7 @@ class LunchItems extends Component {
         //         INGREDIENT_PRICES=res.data;
         //         console.log('Price' , INGREDIENT_PRICES);
         //     })
-    }
+    
 //     addIngredientHandler = (type) => {
 //         // console.log('Hi'  ,this.state.ingredients[type]);
 //         const oldCount = this.state.ingredients[type];   //type of ingredient are 
@@ -83,28 +93,35 @@ class LunchItems extends Component {
 
     purchaseHandler=()=>{
         this.setState({purchasable:true})
+        //this.props.onHide();
     }
 purchaseCancelledHandler=()=>{
 this.setState({purchasable:false})
 }
 purchaseContinuedHandler=()=>{
+  //  this.props.onHide();
    const queryParam =[];
-   for(let i in this.state.ingredients)
+   for(let i in this.props.ings)
    {
-       queryParam.push(encodeURIComponent(i)+'='+ encodeURIComponent(this.state.ingredients[i]))
+       queryParam.push(encodeURIComponent(i)+'='+ encodeURIComponent(this.props.ings[i]))
     console.log('queryParam' , queryParam);
     }
-    queryParam.push('price=' +this.state.totalPrice);
+    queryParam.push('price=' +this.props.totalPrice);
     const queryString = queryParam.join('&')
     console.log('queryString' , queryString);
     this.props.history.push({
         pathname: '/contact-data',
         search: '?' +queryString
+
         
       })
       
 }
     render() {
+        // if(this.state.purchasable===true)
+        // {
+        //    this.props.onHide();
+        // }
     //    console.log("State", this.state.ingredients)
     //     console.log("show", this.state.show)
         console.log("Show", this.props.show);
@@ -151,10 +168,9 @@ const mapDispatchToProps=(dispatch)=>{
             onInitIngredients:(ingName)=>
             dispatch(lunchBuilderAction.initIngredients()),
             onInitTotalPrice:(totalPrice)=>
-            dispatch(lunchBuilderAction.initTotalPrice())
+            dispatch(lunchBuilderAction.initTotalPrice()),
+             onHide:()=> dispatch(lunchBuilderAction.Hide())
             
-
-        
     }
 }
 export default connect (mapStateToProps,mapDispatchToProps)(LunchItems ,axios);

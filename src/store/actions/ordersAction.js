@@ -32,3 +32,32 @@ export const purchaseLunch=(orderData)=>{
         })
     }
 }
+export const fetchOrdersSuccess=(orders)=>{
+    return {
+        type:actionTypes.FETCH_ORDERS_SUCCESS,
+        orders:orders
+    }
+}
+export const fetchOrdersStart=()=>{
+    return {
+        type:actionTypes.FETCH_ORDERS_START
+    }
+}
+export const fetchOrders=()=>{
+    return dispatch=>{
+        dispatch(fetchOrdersStart())
+        axios.get('/orders.json')
+        .then(response=>{
+            console.log('myOrders' , response.data)
+            const fetchOrders=[];
+            for(let key in response.data)
+            {
+                fetchOrders.push({
+                    ...response.data[key],
+                    id:key})
+                }
+                dispatch(fetchOrdersSuccess(fetchOrders))
+
+                })
+    }
+}
