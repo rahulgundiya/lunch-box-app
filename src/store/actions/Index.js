@@ -4,4 +4,4 @@ export {
      initIngredients,
      initTotalPrice,Hide} from './lunchBoxAction';
 export {
-    purchaseLunch  } from  './ordersAction'
+    purchaseLunch,fetchOrders } from  './ordersAction'
