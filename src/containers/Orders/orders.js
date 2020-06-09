@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import axios from '../../axios-order'
 import { connect } from 'react-redux'
+import Spinner from '../../components/UI/Spinner/Spinner'
 import * as actionTypes from '../../store/actions/Index'
+import FetchOrders from '../../components/orders/fetchOrders'
 
 //let ingredients=[];
-let totalPrice = [];
-let form = [];
-var tifOptions = [];
 class Orders extends Component {
     state =
         {
@@ -29,44 +28,41 @@ class Orders extends Component {
         //  const myOrder={}
 
     }
-    componentDidUpdate() {
-        console.log(this.state.orders)
-        // this.props.orders.map(order=>{
-        //     return ( ingredients.push(order.ingredients),
-        //      totalPrice.push(order.totalPrice),
-        //      form.push(order.form)
-        //     )
+    
 
-        //  })
-    }
+    // static getDerivedStateFromProps(nextprops, state) {
+    //     if (nextprops.orders !== state.orders && nextprops.orders[0]) {
+    //         return {
+    //             orders: nextprops.orders[0],
+    //             ingredients: nextprops.orders[0].ingredients
+    //         }
+    //     }
+    //     return null;
+    // }
 
-    static getDerivedStateFromProps(nextprops, state) {
-        if (nextprops.orders !== state.orders && nextprops.orders[0]) {
-            return {
-                orders: nextprops.orders[0],
-                ingredients: nextprops.orders[0].ingredients
-            }
-        }
-        return null;
-    }
-
-    tifOptions = Object.keys(this.state.ingredients).forEach(function (key) {
-        return <li value={key}>{this.state.ingredients[key]}</li>
-    });
+    // tifOptions = Object.keys(this.state.ingredients).forEach(function (key) {
+    //     return <li value={key}>{this.state.ingredients[key]}</li>
+    // });
 
     render() {
+        let orders=<Spinner/>
+        if(!this.props.loading)
+        {
+            orders=this.props.orders.map((order)=>(
+                <FetchOrders key ={order.id}
+                ingredients={order.ingredients}
+                price={order.totalPrice}
+                form={order.form} 
+                />
+            ))
+        }
 
-
-        console.log("here",tifOptions)
 
 
         return (
 
             <div>
-                <ul>
-                    {tifOptions}
-                </ul>
-
+               {orders}
             </div>
         )
     }
